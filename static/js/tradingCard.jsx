@@ -60,9 +60,26 @@ function TradingCard(props) {
 }
 
 function TradingCardContainer() {
+  const floatCard = {
+    name: 'Float',
+    skill: 'baking pretzels',
+    imgUrl: '/static/img/float.jpg',
+  };
+
+  const [cards, setCards] = React.useState([floatCard]);
+
   const tradingCards = [];
 
-  for (const currentCard of tradingCardData) {
+  React.useEffect(() => {
+    fetch('/cards.json')
+      .then((response) => response.json())
+      // parses data as JSON--tell computer to turn into JS
+      .then((data => setCards(data.cards))
+        // takes info, updates components state using method got back from useState
+      })
+  }
+
+  for (const currentCard of cards) {
     tradingCards.push(
       <TradingCard
         key={currentCard.cardId}

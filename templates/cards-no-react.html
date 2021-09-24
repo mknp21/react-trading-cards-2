@@ -18,7 +18,9 @@
 
     fetch("/cards.json")
       .then((response) => response.json())
+      // response is parameter, function will convert to json
       .then((data) => insertCardData(data));
+      // data is parameter, calls insertCardData function w/data as argument
   }
 
   const createCardAndAddToContainer = (name, skill, imgUrl) => {
@@ -33,24 +35,31 @@
   };
 
   const insertCardData = (response) => {
+    // response is parameter
     // Once the data has been provided by the server,
     // insert it into the page as an HTML string.
     const listOfCards = response.cards;
+    // declaring variable to parameter w/attribute
 
     const container = document.querySelector("#container");
+    // selecting an element with specified id and setting that to a variable
 
     // empty the container so it has no content
     container.innerHTML = "";
 
     for (const currentCard of listOfCards) {
+    // declaring currentCard variable (which is expression to look inside listOfCards)
       if (!currentCard.imgUrl) {
+        // if currentCard doesn't have an img
         currentCard.imgUrl = "/static/img/placeholder.png";
       }
+      // then set currentCard w/placeholder img src
       createCardAndAddToContainer(
         currentCard.name,
         currentCard.skill,
         currentCard.imgUrl
       );
+      // use information of currentCard to use w/attributes 
     }
   };
 
